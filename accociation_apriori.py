@@ -12,17 +12,17 @@ def get_rules(df,support,confidence,n):
   '''
   获取在满足最小support条件下confidence最高的top n rules
   '''
-    # 获取support>=指定阈值的频繁项集
-    frequent_itemsets = apriori(df, min_support=support, use_colnames=True,low_memory=True)
-    # 获取confidence>=指定阈值的的关联规则
-    rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=confidence)
-    # 将获取的rule按照confidence降序排序
-    rules.sort_values(by='confidence', ascending=False)
-    # 获取confidence前10的rule
-    if len(rules)>10:
-      return rules[0:n]
-    else:
-      return rules
+  # 获取support>=指定阈值的频繁项集
+  frequent_itemsets = apriori(df, min_support=support, use_colnames=True,low_memory=True)
+  # 获取confidence>=指定阈值的的关联规则
+  rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=confidence)
+  # 将获取的rule按照confidence降序排序
+  rules.sort_values(by='confidence', ascending=False)
+  # 获取confidence前10的rule
+  if len(rules)>10:
+    return rules[0:n]
+  else:
+    return rules
 
 result = get_rules(df=df, support=0.04, confidence=0.7, n=10)
 
