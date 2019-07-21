@@ -9,6 +9,9 @@ df = pd.read_csv('anime_list.csv',header=None)
 # sparse_df = pd.SparseDataFrame(df, columns=te.columns_, default_fill_value=False)
 
 def get_rules(df,support,confidence,n):
+  '''
+  获取在满足最小support条件下confidence最高的top n rules
+  '''
     # 获取support>=指定阈值的频繁项集
     frequent_itemsets = apriori(df, min_support=support, use_colnames=True,low_memory=True)
     # 获取confidence>=指定阈值的的关联规则
@@ -21,6 +24,6 @@ def get_rules(df,support,confidence,n):
     else:
       return rules
 
-result = get_rules(df=df, support=0.03, confidence=0.7, n=10)
+result = get_rules(df=df, support=0.04, confidence=0.7, n=10)
 
 print result
